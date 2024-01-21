@@ -1,0 +1,84 @@
+.special-button {
+    --color: #560bad;
+    font-family: inherit;
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--color);
+    transition: color .5s;
+    z-index: 1;
+    font-size: 25px;
+    border-radius: 3px;
+    font-weight: 500;
+    color: var(--color);
+  }
+  
+  .special-button:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+  }
+  
+  .special-button:hover {
+    color: #fff;
+  }
+  
+  .special-button:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+  }
+  
+  .special-button:hover:before {
+    top: -30px;
+    left: -30px;
+  }
+  
+  .special-button:active:before {
+    background: #3a0ca3;
+    transition: background 0s;
+  }
+  .card {
+    box-sizing: border-box;
+    
+   
+    border: 1px solid #fff ;
+    box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(6px);
+    border-radius: 17px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    font-weight: bolder;
+    width: 59%; 
+    
+    
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: auto;
+  }@media (max-width: 500px) {
+    .card {
+      width: 100%; /* Cards will take up the full width on smaller screens */
+    }
+  }
+  
+  .card:hover {
+    border: 6px solid #560bad;
+    transform: scale(1.1);
+  }
+  
+  .card:active {
+    transform: scale(0.95) rotateZ(1.7deg);
+  }
+ 
