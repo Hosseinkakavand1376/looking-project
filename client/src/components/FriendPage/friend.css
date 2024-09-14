@@ -8,10 +8,11 @@
     border: 3px solid var(--color);
     transition: color .5s;
     z-index: 1;
-    font-size: 25px;
+    font-size: 18px;
     border-radius: 3px;
     font-weight: 500;
     color: var(--color);
+    border-radius: 10px;
   }
   
   .special-button:before {
@@ -82,3 +83,99 @@
     transform: scale(0.95) rotateZ(1.7deg);
   }
  
+  .special-button-success {
+    --color: #0bad44;
+    font-family: inherit;
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--color);
+    transition: color .5s;
+    z-index: 1;
+    font-size: 18px;
+    border-radius: 3px;
+    font-weight: 500;
+    color: var(--color);
+    border-radius: 10px;
+  }
+  
+  .special-button-success:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+  }
+  
+  .special-button-success:hover {
+    color: #fff;
+  }
+  
+  .special-button-success:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+  }
+  
+  .special-button-success:hover:before {
+    top: -30px;
+    left: -30px;
+  }
+  
+  .special-button-success:active:before {
+    background: #099239;
+    transition: background 0s;
+  }
+
+  .special-button-danger {
+    --color: #ad0b0b;
+    font-family: inherit;
+    display: inline-block;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--color);
+    transition: color .5s;
+    z-index: 1;
+    font-size: 18px;
+    border-radius: 3px;
+    font-weight: 500;
+    color: var(--color);
+    border-radius: 10px;
+  }
+  
+  .special-button-danger:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+  }
+  
+  .special-button-danger:hover {
+    color: #fff;
+  }
+  
+  .special-button-danger:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+  }
+  
+  .special-button-danger:hover:before {
+    top: -30px;
+    left: -30px;
+  }
+  
+  .special-button-danger:active:before {
+    background: #910909;
+    transition: background 0s;
+  }
+  .bg-light-green {
+    background-color: #4cd66c; 
+  }

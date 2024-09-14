@@ -14,6 +14,7 @@ const FindingFriend = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [selectedUserData, setSelectedUserData] = useState(null);
     const [showFilterError, setShowFilterError] = useState(false);
+    const [friends, setFriends] = useState([]);
     const [filterValues, setFilterValues] = useState({
       city: "",
       age: "",
@@ -27,15 +28,8 @@ const FindingFriend = () => {
       level: "",
     });
     const [refresh, setRefresh] = useState(false);
-  
 
-    
-  // Load saved state from localStorage
-  const savedState = localStorage.getItem('savedFriendsList');
-  if (savedState) {
-    setUsersData(JSON.parse(savedState));
-  }
-useEffect(() => {
+    useEffect(() => {
       const fetchUsers = async () => {
         try{
           const res = await fetch('http://localhost:8081/api/users');
@@ -122,16 +116,19 @@ useEffect(() => {
       };
     
       const handleConfirmAddFriend = () => {
+        
         setShowSuccessModal(true);
-        setIsOpen(false);
-      };
+    };
+
       const handleSuccessModalClose = () => {
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== selectedUserData.id));
-  setUsersData((prevUsers) => prevUsers.filter((user) => user.id !== selectedUserData.id));
+        setUsersData((prevUsers) => prevUsers.filter((user) => user.id !== selectedUserData.id));
+        setFriends((prevFriends) => [...prevFriends, selectedUserData]);
         setShowSuccessModal(false);
         setSelectedUserData(null);
       };
-     
+
+      users.sort((a, b) => a.id - b.id);
       
   return (
     <>
@@ -140,21 +137,21 @@ useEffect(() => {
           Please choose at least one filter.
         </Alert>
       )}
-     <Container fluid>
+     <Container fluid style={{marginTop: "65px"}}>
     <Row>
       <Col xs={12} md={3}>
-      <Sidebar onApplyFilter={handleFilterApply} onCancel={handleFilterCancel} />
+      <Sidebar friends={friends} setFriends={setFriends} onApplyFilter={handleFilterApply} onCancel={handleFilterCancel} refresh={refresh} setRefresh={setRefresh} setUsersData={setUsersData} usersData={usersData} setUsers={setUsers} users={users}/>
       </Col>
       <Col xs={12} md={9}>
-      <div style={{color:"white",display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop:"15px",marginRight:"-140px"}}>
+      <div style={{color:"white",display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop:"15px",marginRight:"20px"}}>
         <h2> Choose your friend </h2>
         </div>
-      <Container  style={{ overflowY: 'auto', height: '100vh', paddingBottom: '190px' }}>
+      <Container style={{ overflowY: 'auto', paddingBottom: '190px' }}>
 
       {change ?
         <>
           {usersData.map((userData, index) => (
-          <Card className="card" key={index} style={{  marginBottom: '40px',marginLeft:"280px", marginTop:"40px", }}>
+          <Card className="card" key={index} style={{  marginBottom: '40px',marginLeft:"230px", marginTop:"40px", }}>
             <CardHeader className="flex gap-4">
               <div className="flex flex-col">
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -218,7 +215,7 @@ useEffect(() => {
       :
         <>
           {users.map((userData, index) => (
-          <Card className="card" key={index} style={{  marginBottom: '40px',marginLeft:"280px", marginTop:"40px", }}>
+          <Card className="card" key={index} style={{  marginBottom: '40px',marginLeft:"230px", marginTop:"40px", }}>
             <CardHeader className="flex gap-4">
               <div className="flex flex-col">
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -298,10 +295,10 @@ useEffect(() => {
                 </p>
               </ModalBody>
               <ModalFooter style={{alignItems: "center", justifyContent: "center"}}>
-                <Button size="md" radius="sm" className='none no-effect' color="danger" style={{color:"white"}} onPress={onClose}>
+                <Button className='special-button-danger' size="md" radius="sm"  color="transparent"  onPress={onClose}>
                  No
                 </Button>
-                <Button  size="md" radius="sm" className='none no-effect' color="success" style={{color:"white"}} 
+                <Button  size="md" radius="sm" className='special-button-success' color="transparent" 
                 onPress={() => {
                   handleConfirmAddFriend();
                   onClose(); // Close the "Warning" modal
@@ -316,7 +313,7 @@ useEffect(() => {
       </Modal>
   )}
   {selectedUserData && (
-        <Modal backdrop="opaque" size="md" isOpen={showSuccessModal} onOpenChange={handleSuccessModalClose} style={{ width: '400px' }}>
+        <Modal backdrop="opaque" size="md" isOpen={showSuccessModal} onOpenChange={handleSuccessModalClose} style={{ width: '500px' }}>
           <ModalContent>
             {(onClose) => (
               <>
@@ -324,17 +321,15 @@ useEffect(() => {
                   Success
                 </ModalHeader>
                 <ModalBody style={{ marginTop: '10px', fontSize: '20px',display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <div >
-                  <p>Now you have a new friend *-*</p>
-                  <p>
-                    {selectedUserData.name} {selectedUserData.surname} added to your friends!
-                  </p>
+                  <div style={{justifyContent:"center"}}>
+                  <p>your friend Request send to {selectedUserData.name} {selectedUserData.surname} !!</p>
                   </div>
                 </ModalBody>
                 <ModalFooter style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  <Button size="lg" radius="sm" className="none no-effect" color="success" style={{ color: 'white' }} 
+                  <Button size="lg" radius="sm" className='special-button-success' color="transparent"  
                   onPress={() => {
                  {handleSuccessModalClose}
+    
                   onClose(); // Close the "Warning" modal
                 }}>
                     OK
@@ -350,12 +345,3 @@ useEffect(() => {
   );
 };
 export default FindingFriend;
-
-
-const addFriend = (friend) => {
-  // Assuming 'friend' is the object to be added
-  const updatedList = [...usersData, friend];
-  setUsersData(updatedList);
-  // Save the updated list to localStorage
-  localStorage.setItem('savedFriendsList', JSON.stringify(updatedList));
-};

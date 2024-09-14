@@ -9,7 +9,7 @@ export default function App() {
   const isHomePage = location.pathname === '/';
   return (
     <>
-      <Navbar bg={isHomePage ? 'transparent' : 'light'} data-bs-theme="light" style={{ height: "65px",zIndex: 1000 }} className="ps-0">
+      <Navbar bg={'light'} data-bs-theme="light" style={{ height: "65px",zIndex: 1000, position:'fixed', width: '100vw' }} className="ps-0">
         <Navbar.Brand href="/" className="justify-content-start">
           <AcmeLogo />
         </Navbar.Brand>
@@ -46,12 +46,12 @@ export default function App() {
 </ButtonGroup>
         </Nav>
 
-        <Nav className="justify-content-end">
+        <Nav className="justify-content-end" style={{marginRight: "10px"}}>
           <div style={{ display: "flex", alignItems: "center", paddingRight: "15px" }}>
             <Avatar isBordered color="success" size="sm">
               <img src="/150.jpeg" alt="avatar" />
             </Avatar>
-            <span style={{color: isHomePage ? 'white' : 'black', marginLeft: "15px", fontSize: "16px" }}>Romina</span>
+            <span style={{color:'black', marginLeft: "15px", fontSize: "16px" }}>Hossein</span>
           </div>
         </Nav>
       </Navbar>

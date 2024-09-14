@@ -39,17 +39,53 @@ exports.getchallenges = () => {
         });
     });
 };
-exports.getRankingData = () => {
-    return new Promise((resolve, reject) => {
-        const sql = "SELECT name, point FROM Users ORDER BY point DESC";
-        db.all(sql, [], (err, rows) => {
-            if (err) {
+
+exports.getMainUserPoint = () => {
+    return new Promise ((resolve, reject) => {
+        const sql = "SELECT point FROM mainUser";
+        db.all(sql, [], (err, rows) =>{
+            if (err){
                 reject(err);
                 return;
             }
             resolve(rows);
         });
     });
+}
+
+exports.addPoint = (req) => {
+    return new Promise ((resolve, reject) => {
+        const sql = "UPDATE mainUser SET point = point + ?";
+        db.all(sql, [req.body.points], (err, rows) =>{
+            if (err){
+                reject(err);
+                return;
+            }
+            resolve(rows);
+        });
+    });
+}
+
+
+exports.getRankingData = () => {
+    return new Promise((resolve, reject) => {
+        const sqlRanking = "SELECT name, surname, point FROM Users ORDER BY point DESC";
+        const sqlMainUser = "SELECT name, point FROM mainUser ORDER BY point DESC";
+
+        db.all(sqlRanking, [], (err, rankingRows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            db.get(sqlMainUser, [], (err, mainUserRow) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                const combinedResults = [mainUserRow, ...rankingRows];
+
+                resolve(combinedResults);
+            });
+        });
+    });
 };
-
-

@@ -18,8 +18,8 @@ function HomePage() {
 
 
   return (
-    <div style={{ position: 'relative' }}>
-       <div  className="image-container" style={{ position: 'relative',  overflow: 'hidden',marginTop:"-70px" }}>
+    <div style={{ position: 'relative', marginTop: "65px"}}>
+       <div  className="image-container" style={{ position: 'relative',  overflow: 'hidden',marginTop:"0.5px" }}>
  <img src="home.jpg" alt="Home" style={{ width: '100%', height: '100vh', objectFit: 'cover' ,  }} />
    {/* Text on the image */}
    <div
@@ -64,7 +64,7 @@ function HomePage() {
       fontSize: '22px',
     }}
   >
-    Ciao Romina.<br />
+    Ciao Hossein.<br />
     Looking is Looking for you <br />
     It helps you to improve,<br />
     your Italian language skills <br />
@@ -86,7 +86,7 @@ function HomePage() {
         />
         <Carousel.Caption>
       <h3>Finding Friends</h3>
-      <p>This part of our site give you that opporyunity to fiend a good partner 
+      <p>This part of our site give you that opporyunity to find a good partner 
                 for improving your Italian language skills.</p>
                 <Link to="/find-friend">
                 <Button variant="ghost" color='warning'radius="sm" > see the page</Button>

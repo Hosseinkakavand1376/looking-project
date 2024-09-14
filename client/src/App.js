@@ -16,8 +16,6 @@ import { NextUIProvider } from '@nextui-org/react';
 
 function App() {
 
-  const [userPoints, setUserPoints] = useState(0);
-
  /*  const [state, setState] = useState({name: ""});
 
   const getmain = async () => {
@@ -41,7 +39,7 @@ function App() {
             <Routes>
               <Route index element={<HomePage />} />
               <Route path='/find-friend' element={<FindFriend />} />
-              <Route path='/challenge' element={<Challenge setUserPoints={setUserPoints} userPoints={userPoints}/>} />
+              <Route path='/challenge' element={<Challenge />} />
               <Route path='/ranking' element={<Ranking />} />
             </Routes>
           </BrowserRouter>
